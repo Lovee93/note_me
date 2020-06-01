@@ -1,0 +1,36 @@
+.nav-container {
+    justify-content: flex-end;
+    background-color: #92C4ED;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+
+.link-button {
+    text-decoration: none;
+    background-color: #FBF6F3;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100px;
+    color: #0E538c;
+    font-family: 'Amaranth', cursive;
+    font-style: normal;
+    font-size: .990rem;
+    text-align: center;
+}
+
+.dim1 {
+    opacity: 1;
+    transition: opacity .15s ease-in;
+}
+
+.dim1:hover, .dim1:focus {
+    opacity: 0.75;
+    transition: opacity .15s ease-in;
+}
+
+.dim1:active {
+    opacity: .9;
+    transition: opacity .15s ease-out;
+}
+

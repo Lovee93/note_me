@@ -1,0 +1,19 @@
+.scard {
+	background-color: #FAD7B7;
+	margin-top: 6em;
+	height: fit-content;
+	font-family: 'Amaranth', cursive;
+    font-style: normal;
+}
+
+.signin-button {
+	background-color: #fe508f;
+	border-radius: 5px;
+    border-style: none;
+    color: white;
+}
+
+.bottom-link {
+	text-align: center;
+	text-decoration: underline;
+}

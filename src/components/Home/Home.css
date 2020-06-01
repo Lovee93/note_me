@@ -1,0 +1,26 @@
+.home-body {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	font-family: 'Grand Hotel', cursive;
+}
+
+.note-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.add-button {
+	border-radius: 50px;
+	align-self: center;
+	border-style: none;
+	background: #FE508F;
+	height: 100px;
+	width: 100px;
+	margin: 10px;
+	color: white;
+	font-size: 100px;
+	margin-top: auto;
+}
+
