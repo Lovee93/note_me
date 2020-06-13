@@ -1,27 +1,65 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Note.css';
 import { Textfit } from 'react-textfit';
 import edit from './edit.svg';
 import del from './delete.png';
 
-class Note extends Component {
-	constructor(){
-		super();
+function Note(props) {
+
+const {note, loadNotes} = props;
+
+const delNote = () => {
+		fetch(`http://localhost:3000/del_note/${note.user_id}`, {
+      method: 'delete',
+      headers: {
+      	'Content-Type': 'application/json',
+      	'Allow':'GET, POST, DELETE, PUT'
+      },
+      body: JSON.stringify({
+        note_id: note.note_id
+      }) 
+    })
+    .then(response => response.json())
+    .then(data => {
+    	if(data) {
+    		loadNotes(note.user_id)
+    	}
+    })
 	}
 
-	render() {
+const	editNote = () => {
+		const prompt_note = prompt(`Current: ${note.note}\nNew: `)
+		if(prompt_note === '' || prompt_note === null) {
+			return;
+		} else {
+			fetch(`http://localhost:3000/edit_note/${note.user_id}`, {
+		      method: 'PUT',
+		      headers: {'Content-Type': 'application/json'},
+		      body: JSON.stringify({
+		        note_id: note.note_id,
+		        note_rev: prompt_note
+		      }) 
+		    })
+		    .then(response => response.json())
+		    .then(data => {
+		    	if(data) {
+		    		loadNotes(note.user_id)
+		    	}
+		  })
+		}
+	}
+
 		return(	
 			<div className="note_div">
 		    <Textfit mode="multi" className="note">
-		        {this.props.note}
+		        {note.note}
 		    </Textfit>
 		    <div className="options">
-		    	<button className="icon"><img src={edit} /></button>
-		    	<button className="icon"><img src={del} /></button>
+		    	<button className="icon" onClick={editNote} ><img src={edit} alt='edit_note' /></button>
+		    	<button className="icon" onClick={delNote} ><img src={del} alt='del_note' /></button>
 		    </div>
     	</div>
 		);
-	}
 }
 
 export default Note;

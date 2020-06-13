@@ -1,39 +1,46 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Home.css';
 import Note from '../Note/Note.js';
 
-class Home extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			
-		}
+function Home(props) {
+
+	const { user, notes, loadNotes } = props;
+
+	const addNote = () => {
+		const prompt_note = prompt('What would you like to note down?')
+
+		fetch(`http://localhost:3000/new_note/${user.id}`, {
+	    method: 'post',
+	    headers: {'Content-Type': 'application/json'},
+	    body: JSON.stringify({
+	      note: prompt_note
+	    }) 
+	  })
+	  .then(response => response.json())
+	  .then(data => {
+	  	if(data) {
+	  		loadNotes(user.id)
+	  	}
+	  })
 	}
 
-	addNote = () => {
-		
-	}
-	
-	render() {
-		
-		return(
+	return(
 		<div className="home-body">	
 			<h1 className="heading">
-				Welcome User!
+				Welcome {user.firstname}!
 			</h1>
 			<div className="note-container">
 				{
-					this.props.user.notes.map(note => {
-						
-						return <Note note={note} key={note.toString()} />
-						
-					})
+					notes.length !== 0 ?
+						notes.map(obj => {
+							 	return <Note note={obj} key={obj.note_id} loadNotes={loadNotes} />
+							})
+					: ''	
 				}
-				<button className="add-button">+</button>
+				<button className="add-button" onClick={addNote}>+</button>
 			</div>
 		</div>
-		);
-	}
+	);
 }
 
 export default Home;

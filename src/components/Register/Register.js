@@ -5,8 +5,8 @@ class Register extends Component {
   constructor(props){
     super(props);
     this.state = {
-      firstName: '',
-      lastName:'',
+      firstname: '',
+      lastname:'',
       email:'',
       password:''
     }
@@ -21,15 +21,39 @@ class Register extends Component {
   }
 
   onFNameChange = (event) => {
-    this.setState({firstName: event.target.value})
+    this.setState({firstname: event.target.value})
   }
 
   onLNameChange = (event) => {
-    this.setState({lastName: event.target.value})
+    this.setState({lastname: event.target.value})
   }
 
-  onRegister = () => {
-    console.log('register')
+  onRegister = (event) => {
+    event.preventDefault();
+    
+    const { firstname, lastname, email, password } = this.state;
+
+    if(firstname !== '' && lastname !== '' && email !== '' && password !== '') {
+      fetch('http://localhost:3000/register', {
+        method:'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          firstname: this.state.firstname,
+          lastname: this.state.lastname,
+          email: this.state.email,
+          password: this.state.password
+        })
+      })
+      .then(response => response.json())
+      .then(user => {
+        alert('User Registered Successfully, Please login!')
+        this.props.onRouteChange('signin');
+      })
+      .catch(console.log)
+    }
+    else {
+      alert('Please fill out all the fields.')
+    }
   }
 
 	render() {
@@ -67,7 +91,7 @@ class Register extends Component {
       			<label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox" /> Remember me</label>
     			</fieldset>
     			<div style={{textAlign:'center'}}>
-      			<input className="b ph4 mv3 pv2 input-reset signup-button grow pointer f5 dib" type="submit" value="Sign up"/>
+      			<input className="b ph4 mv3 pv2 input-reset signup-button grow pointer f5 dib" type="submit" value="Sign up" onClick={this.onRegister}/>
     			</div>
 			    <div className="lh-copy mt3 bottom-link">
 			      <a href="#0" className="f6 link dim black db" onClick={()=>this.props.onRouteChange('signin')}>Have an account, Sign in!</a>

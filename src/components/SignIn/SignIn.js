@@ -18,13 +18,28 @@ class SignIn extends Component {
     this.setState({signInPassword: event.target.value})
   }
 
-  onSignIn = () => {
-    if(this.state.signInEmail === this.props.user.email) {
-      console.log('LoggedIn')
-      this.props.onRouteChange('home')
-    } 
-    else {
-      console.log('Wrong credentials')
+  onSignIn = (event) => {
+    event.preventDefault();
+    if(this.state.signInEmail !== '' && this.state.password !== '') {
+      fetch("http://localhost:3000/signin", {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          email: this.state.signInEmail,
+          password: this.state.signInPassword
+        }) 
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(!data.length) { 
+          this.props.loadUser(data)
+          this.props.onRouteChange('home')
+        }
+        else{
+          alert(data)
+        }
+      })
+      .catch(err => console.log('err'))
     }
   }
 
