@@ -21,7 +21,7 @@ class SignIn extends Component {
   onSignIn = (event) => {
     event.preventDefault();
     if(this.state.signInEmail !== '' && this.state.password !== '') {
-      fetch("http://localhost:3000/signin", {
+      fetch("https://still-bastion-77945.herokuapp.com/signin", {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({

@@ -9,7 +9,7 @@ function Home(props) {
 	const addNote = () => {
 		const prompt_note = prompt('What would you like to note down?')
 
-		fetch(`http://localhost:3000/new_note/${user.id}`, {
+		fetch(`https://still-bastion-77945.herokuapp.com/new_note/${user.id}`, {
 	    method: 'post',
 	    headers: {'Content-Type': 'application/json'},
 	    body: JSON.stringify({

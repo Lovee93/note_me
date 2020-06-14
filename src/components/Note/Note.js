@@ -9,7 +9,7 @@ function Note(props) {
 const {note, loadNotes} = props;
 
 const delNote = () => {
-		fetch(`http://localhost:3000/del_note/${note.user_id}`, {
+		fetch(`https://still-bastion-77945.herokuapp.com/del_note/${note.user_id}`, {
       method: 'delete',
       headers: {
       	'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ const	editNote = () => {
 		if(prompt_note === '' || prompt_note === null) {
 			return;
 		} else {
-			fetch(`http://localhost:3000/edit_note/${note.user_id}`, {
+			fetch(`https://still-bastion-77945.herokuapp.com/edit_note/${note.user_id}`, {
 		      method: 'PUT',
 		      headers: {'Content-Type': 'application/json'},
 		      body: JSON.stringify({

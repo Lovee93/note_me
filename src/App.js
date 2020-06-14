@@ -39,7 +39,7 @@ class App extends Component {
   }
 
   loadNotes = (user_id) => {
-    fetch(`http://localhost:3000/note_me/${user_id}`, {
+    fetch(`https://still-bastion-77945.herokuapp.com/note_me/${user_id}`, {
       method: 'post',
       headers: {'Content-Type': 'application/json'} 
     })
